@@ -405,3 +405,11 @@ test('`InlineTable` cannot have actions', function () {
         'recordId' => ProductFactory::createImmutable()->id,
     ]);
 })->throws(InvalidTableException::class);
+
+test('action endpoint parameters can be resolved using a closure', function () {
+    Table::resolveEndpointParametersUsing(fn (Table $table) => [
+        'tenant' => 1,
+    ]);
+
+    expect(BasicProductsTable::make())->toMatchSnapshot();
+});

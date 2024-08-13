@@ -46,7 +46,10 @@
         }
     },
     "columns": [],
-    "endpoint": "hybridly.action.invoke",
+    "endpoint": {
+        "name": "hybridly.action.invoke",
+        "parameters": []
+    },
     "inlineActions": [],
     "bulkActions": [],
     "scope": null

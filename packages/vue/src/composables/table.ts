@@ -21,7 +21,10 @@ declare global {
 		records: Array<T>
 		paginator: Exclude<PaginatorKind extends 'cursor' ? CursorPaginator<T> : (PaginatorKind extends 'simple' ? SimplePaginator<T> : Paginator<T>), 'data'>
 		refinements: Refinements
-		endpoint: string
+		endpoint: {
+			name: string
+			parameters: string[]
+		}
 	}
 }
 
@@ -130,7 +133,7 @@ export function useTable<
 	async function executeInlineAction(action: Action | string, record: RecordType | RecordIdentifier) {
 		return await router.navigate({
 			method: 'post',
-			url: route(table.value.endpoint),
+			url: route(table.value.endpoint.name, table.value.endpoint.parameters),
 			preserveState: true,
 			data: {
 				...getDefaultData(),
@@ -157,7 +160,7 @@ export function useTable<
 
 		return await router.navigate({
 			method: 'post',
-			url: route(table.value.endpoint),
+			url: route(table.value.endpoint.name, table.value.endpoint.parameters),
 			preserveState: true,
 			data: {
 				...getDefaultData(),
