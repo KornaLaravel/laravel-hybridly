@@ -33,28 +33,40 @@
         "spatie/x-ray": "^1.1.1",
         "symplify/monorepo-builder": "^11.2.3.72"
     },
+    "replace": {
+        "hybridly/laravel": "self.version"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
-        "files": [
-            "packages/laravel/src/Support/global_helpers.php",
-            "packages/laravel/src/Support/helpers.php",
-            "packages/laravel/src/Testing/helpers.php"
-        ],
         "psr-4": {
             "Hybridly\\": [
                 "packages/laravel/src"
             ],
             "Hybridly\\Tests\\": "packages/laravel/tests"
-        }
+        },
+        "files": [
+            "packages/laravel/src/Support/global_helpers.php",
+            "packages/laravel/src/Support/helpers.php",
+            "packages/laravel/src/Testing/helpers.php"
+        ]
     },
     "autoload-dev": {
-        "files": [
-            "packages/laravel/src/Testing/helpers.php"
-        ],
         "psr-4": {
             "Build\\": [
                 "build"
             ],
             "Hybridly\\Tests\\": "packages/laravel/tests"
+        },
+        "files": [
+            "packages/laravel/src/Testing/helpers.php"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
         }
     },
     "extra": {
@@ -65,13 +77,6 @@
             "providers": [
                 "Hybridly\\HybridlyServiceProvider"
             ]
-        }
-    },
-    "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true
         }
     },
     "scripts": {
@@ -90,10 +95,5 @@
             "@test",
             "@xray"
         ]
-    },
-    "replace": {
-        "hybridly/laravel": "self.version"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
