@@ -52,7 +52,7 @@ Optionally, you may provide the `--model` argument to specify the associated mod
 Like refinements, you may simply pass the table as a property to the hybrid view returned by a controller:
 
 ```php
-use function Hytbridly\view;
+use function Hybridly\view;
 
 return view('users.index', [
 	'users' => UsersTable::make(),
