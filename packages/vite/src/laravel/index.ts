@@ -51,7 +51,14 @@ export default function laravel(options: ViteOptions, hybridlyConfig: DynamicCon
 					assetsInlineLimit: userConfig.build?.assetsInlineLimit ?? 0,
 				},
 				server: {
-					origin: userConfig.server?.origin ?? '__laravel_vite_placeholder__',
+					origin: userConfig.server?.origin ?? 'http://__laravel_vite_placeholder__.test',
+					cors: userConfig.server?.cors ?? {
+						origin: userConfig.server?.origin ?? [
+							/^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/,
+							...(env.APP_URL ? [env.APP_URL] : []),
+							/^https?:\/\/.*\.test(:\d+)?$/,
+						],
+					},
 					...(process.env.LARAVEL_SAIL
 						? {
 								host: userConfig.server?.host ?? '0.0.0.0',
@@ -79,7 +86,7 @@ export default function laravel(options: ViteOptions, hybridlyConfig: DynamicCon
 		},
 		transform(code) {
 			if (resolvedConfig.command === 'serve') {
-				return code.replace(/__laravel_vite_placeholder__/g, viteDevServerUrl)
+				return code.replace(/http:\/\/__laravel_vite_placeholder__\.test/g, viteDevServerUrl)
 			}
 		},
 		configureServer(server) {
